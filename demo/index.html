@@ -1,0 +1,72 @@
+<!-- index.html -->
+<html>
+  <head>
+    <title>Hello React</title>
+    <script src="../build/react.js"></script>
+    <script src="../build/JSXTransformer.js"></script>
+    <script src="../build/jQuery.js"></script>
+     <script src="http://cdnjs.cloudflare.com/ajax/libs/showdown/0.3.1/showdown.min.js"></script>
+  </head>
+  <body>
+    <div id="content"></div>
+    <script type="text/jsx">
+
+    var converter = new Showdown.converter();
+	// tutorial5.js
+	var Comment = React.createClass({
+	  render: function() {
+	  	var rawMarkup = converter.makeHtml(this.props.children.toString());
+	    return (
+	      <div className="comment">
+	        <h2 className="commentAuthor">
+	          {this.props.author}
+	        </h2>
+	       <span dangerouslySetInnerHTML = {{__html:rawMarkup}} />
+	      </div>
+	    );
+	  }
+	});
+
+
+
+	// tutorial2.js
+	var CommentList = React.createClass({
+	  render: function() {
+	    return (
+	      <div className="commentList">
+	      //blablablablabla
+	        <Comment author="Pete Hunt">#This is one Comment <span>sdf</span>fds</Comment>
+	        <Comment author="Jordan Walke">This is *another* Comment</Comment>
+	      </div>
+	    );
+	  }
+	});
+
+	var CommentForm = React.createClass({
+	  render: function() {
+	    return (
+	      <div className="commentForm">
+	        Hello, world! I am a CommentForm.
+	      </div>
+	    );
+	  }
+	});
+	// tutorial1.js
+	var CommentBox = React.createClass({
+	  render: function() {
+	    return (
+	      <div className="commentBox">
+	       <h1>comment</h1>
+	       <CommentList/>
+	       <CommentForm/>
+	      </div>
+	    );
+	  }
+	});
+	React.render(
+	  <CommentBox />,
+	  document.getElementById('content')
+	);
+    </script>
+  </body>
+</html>

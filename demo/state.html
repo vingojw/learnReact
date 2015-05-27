@@ -1,0 +1,50 @@
+<!-- index.html -->
+<html>
+  <head>
+    <title>Hello React</title>
+    <script src="../build/react.js"></script>
+    <script src="../build/JSXTransformer.js"></script>
+    <script src="../build/jQuery.js"></script>
+     <script src="http://cdnjs.cloudflare.com/ajax/libs/showdown/0.3.1/showdown.min.js"></script>
+  </head>
+  <body>
+    <div id="content"></div><div id="content1"></div>
+    <script type="text/jsx">
+    var CountryDropdown = React.createClass({
+			getInitialState:function(){
+				return {
+					showOptions: false
+				}
+			},
+			render:function(){
+				var options;
+				if(this.state.showOptions){
+					options = (
+						<ul>
+						<li>United States of America</li>
+						<li>New Zealand</li>
+						<li>Denmark</li>
+						</ul>
+					);
+				}
+				return (
+					<div className="dropdown" onClick={this.handleClick}>
+						<label>Choose a country</label>
+						{options}
+					</div>
+				);
+			},
+			handleClick:function(){
+				this.setState({showOptions:!this.state.showOptions});
+			}
+    	});
+
+
+
+
+
+
+	React.render(<CountryDropdown />,document.getElementById('content1'));
+    </script>
+  </body>
+</html>

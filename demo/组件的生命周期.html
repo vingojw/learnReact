@@ -1,0 +1,75 @@
+<!-- index.html -->
+<html>
+  <head>
+    <title>Hello React</title>
+    <script src="../build/react.js"></script>
+    <script src="../build/JSXTransformer.js"></script>
+    <script src="../build/jQuery.js"></script>
+     <script src="http://cdnjs.cloudflare.com/ajax/libs/showdown/0.3.1/showdown.min.js"></script>
+  </head>
+  <body>
+    <div id="content"></div>
+    <div id="content1"></div>
+    <script type="text/jsx">
+
+/*
+这里的例子声明了一个组件，但是在两个div中都有使用
+生命周期，从上到下依次调用，可以看控制台 依次输出如下内容
+
+getDefaultProps  这里只调用了一次，也就是说在声明的时候
+getInitialState
+componentWillMount
+render
+componentDidMount
+                  在这里就不会调用getDefaultProps了
+getInitialState
+componentWillMount
+render
+componentDidMount
+
+ */
+	var CommentBox = React.createClass({
+		//对于组件  类来说，只会调用一次
+		getDefaultProps:function(){
+			console.log('getDefaultProps');
+		},
+		//对于组件实例来说，有且仅有一次
+		getInitialState:function(){
+			console.log('getInitialState');
+			//这里必须要return 一个对象
+			return {
+				name:'vingo'
+			}
+		},
+		//完成首次渲染之前被调用，这是在render方法调用前可以修改组件state的最后一次机会
+		componentWillMount:function(){
+			console.log('componentWillMount');
+		},
+
+		render: function() {
+			console.log('render');
+			return (
+				<div className="commentBox">
+					{this.state.name}
+					{this.props.children}
+				</div>
+			);
+		},
+		//render 方法成功调用并且正式的DOM 已经被渲染之后可以在方法中通过 this.getDOMNode()方法访问到他
+		componentDidMount:function(){
+			console.log('componentDidMount');
+		}
+	});
+
+	React.render(
+		<CommentBox ><p>hello world <i>2333</i></p></CommentBox >,
+		document.getElementById('content')
+	);
+
+	React.render(
+		<CommentBox ><p>hello world <i>2333</i></p></CommentBox >,
+		document.getElementById('content1')
+	);
+    </script>
+  </body>
+</html>
